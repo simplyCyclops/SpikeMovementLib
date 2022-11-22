@@ -1,5 +1,14 @@
+from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, DistanceSensor, Motor, MotorPair
+from spike.control import wait_for_seconds, wait_until, Timer
 from math import *
+
 import time
+
+hub = PrimeHub()
+
+hub.light_matrix.show_image('HAPPY')
+
+motor = Motor('A')
 
 def linear_generator(duration):
     duration *= 10**9
@@ -17,9 +26,8 @@ def accelerate(duration, motor, invert = False):
     for speed in generator:
         motor.start_at_power(int(get_power(speed)))
 
-generator = linear_generator(0.1)
-res = set()
-for i in generator:
-  res.add(i)
-
-print(sorted(list(res)))
+accelerate(2, motor)
+wait_for_seconds(3)
+generator = linear_generator(2)
+accelerate(2, motor, invert=True)
+motor.stop()
