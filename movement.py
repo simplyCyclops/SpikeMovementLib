@@ -44,6 +44,8 @@ class Chassis(MotorPair):
       elif ratio < speed_ratio:
         lsp = l_speed * (1/ratio)
 
+      self.start_tank_at_power(lsp, rsp)
+
     for i in interpolation.linear(acc_time):
       j = 1-i
       self.start_tank_at_power(j*l_speed, j*r_speed)
